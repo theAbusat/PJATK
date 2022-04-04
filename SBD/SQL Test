@@ -1,0 +1,96 @@
+SQL TEST
+1.For each city find the  person having the highest salary .
+ 
+Select loc,  MAX(sal)
+from Emp e,Dept d
+where d.deptno=e.deptno
+group by loc
+ 
+ 
+ 
+2. How many staff members have supervisers working in  Dallas ?
+ 
+Select COUNT(e1.empno) 
+From Emp e1, Emp e2, Dept d
+Where e2.empno=e1.mgr   AND   e2.deptno=d.Deptno
+AND   loc='Dallas'
+ 
+ 
+3. Show the fist date when somebody working as analyst was employed.
+ 
+Select MIN(hiredate)
+From Emp
+Where job like '%analyst%'
+ 
+ 
+4.Who earns more then the average salary for his department ?
+ 
+ Select empno, ename
+ From Emp e, Dept d
+ Where d.deptno = e.deptno
+ Group by empno, ename
+ Having sal > AVG (sal)
+ 
+ 
+5. Show name of the boss if he supervises somebody  with salary in grade 3.
+ 
+Select e2.ename
+From Emp e1, Emp e2 , Salgrade
+Where e1.mgr=e2.empno AND grade=3 AND sal BETWEEN hisal and losal
+ 
+
+
+
+
+
+ 
+6. Show jobs and hiredated such that somebody  with this job was employed  on this day in department 2 and  in department 3.
+ 
+ Select job, hiredate
+ From Emp, Dept d1, Dept d1, Emp e2
+ WHERE     D1.deptno = Emp.deptno
+       AND d1.hiredate = d2.hiredate
+       AND d1.dname = 'department 2'
+       AND d2.dname = 'department 3'
+and  D2.deptno=E2.deptno
+ 
+ 
+7. Who earns more then everybody working in New York ?
+ 
+Select empno,ename
+From Emp WHERE  sal>(select MAX(sal) 
+From Emp e, Dept d
+Where  e.deptno=d.Deptno
+AND loc='New York')
+ 
+ 
+ 
+8.  Show all cities where somebody works as manager.
+ 
+Select distinct loc
+From Dept d, Emp e 
+Where empno in (Select distinct mgr
+ From Emp) AND  e.deptno=d.Deptno
+ 
+ 
+ 
+9. Who was employed first with salary in grade 3 ( show name of the person , hiredate and salary).
+ 
+SELECT ENAME, HIREDATE
+FROM EMP
+WHERE HIREDATE = (
+SELECT MIN(HIREDATE)
+FROM EMP,SALGRADE
+WHERE SAL BETWEEN LOSAL AND HISAL
+AND GRADE=3); 
+ 
+ 
+10. Find difference between the biggest and thew smallest salary for every job.
+ 
+ Select job, (MAX (sal) - MIN (sal)) difference
+   FROM Emp
+GROUP BY job
+ 
+ 
+ 
+
