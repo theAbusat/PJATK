@@ -1,0 +1,1 @@
+Main method has some inaccuracies concerning the rentals.
